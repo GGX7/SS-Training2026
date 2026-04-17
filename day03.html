@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 03 / 変数、データ型、メモリの概念 — RL Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="noise-overlay"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">▚</span>
+      <span class="logo-text">RL<span class="slash">/</span>ONBOARDING</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="month1.html" class="nav-link active">Month 01</a>
+      <a href="month2.html" class="nav-link">Month 02</a>
+      <a href="month3.html" class="nav-link">Month 03</a>
+      <a href="month4.html" class="nav-link">Month 04</a>
+      <a href="appendix.html" class="nav-link">Appendix</a>
+    </nav>
+    <div class="header-meta">
+      <span class="status-dot"></span>
+      <span class="status-text">LAB.ACTIVE</span>
+    </div>
+  </div>
+</header>
+
+<div class="day-page">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">MONTH 01 — CONTENTS</div>
+
+    <div class="sidebar-list">
+      <div class="sidebar-week-label">WEEK 01 / 環境構築</div>
+      <a href="day01.html" class="sidebar-link">
+        <span class="day-no">01</span><span>VS Code構築</span>
+      </a>
+      <a href="day02.html" class="sidebar-link">
+        <span class="day-no">02</span><span>仮想環境</span>
+      </a>
+
+      <div class="sidebar-week-label">WEEK 02 / データと制御</div>
+      <a href="day03.html" class="sidebar-link active">
+        <span class="day-no">03</span><span>変数・メモリ</span>
+      </a>
+      <a href="day04.html" class="sidebar-link">
+        <span class="day-no">04</span><span>制御構文</span>
+      </a>
+
+      <div class="sidebar-week-label">WEEK 03 / 関数・モジュール</div>
+      <a href="day05.html" class="sidebar-link">
+        <span class="day-no">05</span><span>関数とDRY</span>
+      </a>
+      <a href="day06.html" class="sidebar-link">
+        <span class="day-no">06</span><span>モジュール</span>
+      </a>
+
+      <div class="sidebar-week-label">WEEK 04 / Git・デバッグ</div>
+      <a href="day07.html" class="sidebar-link">
+        <span class="day-no">07</span><span>Git基礎</span>
+      </a>
+      <a href="day08.html" class="sidebar-link">
+        <span class="day-no">08</span><span>デバッグ</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content-main">
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="month1.html">Month 01</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Day 03</span>
+    </div>
+
+    <!-- Day Header -->
+    <header class="day-header">
+      <span class="day-tag">WEEK 02 · DAY 03</span>
+      <h1 class="day-title">変数、データ型、<br>メモリの概念</h1>
+      <div class="day-meta">
+        <div class="day-meta-item">
+          <strong>所要時間</strong>
+          <span>約 90 分</span>
+        </div>
+        <div class="day-meta-item">
+          <strong>前提</strong>
+          <span>Day 01, 02 完了</span>
+        </div>
+        <div class="day-meta-item">
+          <strong>使うもの</strong>
+          <span>VS Code + Python 3.11</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Goal Box -->
+    <div class="goal-box">
+      <div class="goal-label">// TODAY'S GOAL</div>
+      <div class="goal-text">
+        Pythonにおけるデータ型（<code>int, float, str, list, dict</code>）を使い分けられるようになり、
+        <em>「変数は箱ではなく名札である」</em>という考え方を自分の言葉で説明できる状態になる。
+      </div>
+    </div>
+
+    <!-- なぜこれを学ぶか -->
+    <h2 class="content-h2">なぜこれを学ぶのか</h2>
+    <p>
+      強化学習のコードを読み書きしていると、<strong>「同じリストを2箇所で変更したら片方しか変わらない（あるいは両方変わってしまう）」</strong>という現象に必ず出会います。
+      これは変数が「値をコピーした箱」ではなく「メモリ上のオブジェクトを指し示す名札」だからです。
+      この直感は、後々 NumPy の配列や、RLlib の <code>config</code> 辞書を扱うときに<em>致命的なバグ</em>を防いでくれます。
+    </p>
+
+    <h2 class="content-h2">01 · 基本のデータ型</h2>
+    <p>
+      Python には最初に覚えるべきデータ型が5つあります。数値（整数と小数）、文字列、リスト、辞書です。
+      ターミナルで <code>python</code> と打って対話モードを起動し、以下を実際に入力してみてください。
+    </p>
+
+    <div class="code-block">
+      <div class="code-head">
+        <span><span class="code-lang">python</span> · 対話モード</span>
+        <button class="code-copy" onclick="copyCode(this)">copy</button>
+      </div>
+      <div class="code-body">
+<pre><span class="code-cmt"># 整数 (int)</span>
+<span class="code-fn">type</span>(<span class="code-num">42</span>)          <span class="code-cmt"># &lt;class 'int'&gt;</span>
+
+<span class="code-cmt"># 浮動小数 (float)</span>
+<span class="code-fn">type</span>(<span class="code-num">3.14</span>)        <span class="code-cmt"># &lt;class 'float'&gt;</span>
+
+<span class="code-cmt"># 文字列 (str)</span>
+<span class="code-fn">type</span>(<span class="code-str">"hello"</span>)     <span class="code-cmt"># &lt;class 'str'&gt;</span>
+
+<span class="code-cmt"># リスト (list) — 順序あり、変更可能</span>
+<span class="code-fn">type</span>([<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>])    <span class="code-cmt"># &lt;class 'list'&gt;</span>
+
+<span class="code-cmt"># 辞書 (dict) — キーと値のペア</span>
+<span class="code-fn">type</span>({<span class="code-str">"lr"</span>: <span class="code-num">0.001</span>}) <span class="code-cmt"># &lt;class 'dict'&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-label">// NOTE</span>
+      <code>type()</code> は「このオブジェクトの設計図は何？」を教えてくれる組み込み関数です。
+      これは今後クラスを学ぶ時に伏線として効いてきます。
+    </div>
+
+    <h2 class="content-h2">02 · 変数は「名札」である</h2>
+    <p>
+      多くの入門書は「変数とは値を入れる箱」と説明しますが、この例えは <strong>Python においては間違い</strong>です。
+      正確には、変数は<em>メモリ上のオブジェクトに貼り付けた名札</em>です。次の例を見てください。
+    </p>
+
+    <div class="code-block">
+      <div class="code-head">
+        <span><span class="code-lang">python</span> · 名札の挙動</span>
+        <button class="code-copy" onclick="copyCode(this)">copy</button>
+      </div>
+      <div class="code-body">
+<pre>a = [<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>]
+b = a          <span class="code-cmt"># b は a と「同じリスト」への名札</span>
+
+b.append(<span class="code-num">4</span>)
+
+<span class="code-fn">print</span>(a)       <span class="code-cmt"># → [1, 2, 3, 4]  ← a も変わっている!</span>
+<span class="code-fn">print</span>(<span class="code-fn">id</span>(a) == <span class="code-fn">id</span>(b))  <span class="code-cmt"># → True</span></pre>
+      </div>
+    </div>
+
+    <p>
+      <code>id()</code> はオブジェクトのメモリ上の住所を返します。<code>a</code> と <code>b</code> は<strong>同じ住所を指している</strong>ので、
+      片方を変更するともう片方からも変わって見えます。これが「名札」の意味です。
+    </p>
+
+    <div class="callout callout-warn">
+      <span class="callout-label">// 詰まりポイント</span>
+      設定辞書 <code>config</code> を別の関数に渡してその中で書き換えると、元の <code>config</code> も変わってしまうことがあります。
+      これを防ぐには <code>import copy; copy.deepcopy(config)</code> を使います。RLlibでは頻出のパターンなので覚えておきましょう。
+    </div>
+
+    <h2 class="content-h2">03 · 手を動かす</h2>
+    <p>以下の演習を実際に入力して、想定出力と一致するか確認してください。</p>
+
+    <h3 class="content-h3">演習 3-1 · 辞書を使ったハイパーパラメータの表現</h3>
+    <div class="code-block">
+      <div class="code-head">
+        <span><span class="code-lang">python</span> · exercise.py</span>
+        <button class="code-copy" onclick="copyCode(this)">copy</button>
+      </div>
+      <div class="code-body">
+<pre><span class="code-cmt"># 強化学習でよく使う設定の書き方を練習する</span>
+config = {
+    <span class="code-str">"learning_rate"</span>: <span class="code-num">0.001</span>,
+    <span class="code-str">"gamma"</span>: <span class="code-num">0.99</span>,
+    <span class="code-str">"num_workers"</span>: <span class="code-num">4</span>,
+}
+
+<span class="code-cmt"># 値を取り出す</span>
+<span class="code-fn">print</span>(config[<span class="code-str">"learning_rate"</span>])  <span class="code-cmt"># → 0.001</span>
+
+<span class="code-cmt"># 新しいキーを追加</span>
+config[<span class="code-str">"batch_size"</span>] = <span class="code-num">64</span>
+<span class="code-fn">print</span>(config)</pre>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-label">// HINT</span>
+      第4ヶ月で触れるRLlibの <code>config</code> は、まさにこの形の辞書です。今のうちに慣れておくと後が楽になります。
+    </div>
+
+    <h2 class="content-h2">04 · 自己確認クイズ</h2>
+
+    <div class="quiz-box">
+      <div class="quiz-q">Q1. 次のコードを実行したとき <code>print(x)</code> の出力は？</div>
+      <div class="code-block" style="margin: 12px 0;">
+        <div class="code-body" style="padding: 14px 20px;">
+<pre>x = [<span class="code-num">1</span>, <span class="code-num">2</span>]
+y = x
+y.append(<span class="code-num">3</span>)
+<span class="code-fn">print</span>(x)</pre>
+        </div>
+      </div>
+      <div class="quiz-options">
+        <div class="quiz-option">A. [1, 2]</div>
+        <div class="quiz-option">B. [1, 2, 3]</div>
+        <div class="quiz-option">C. エラーになる</div>
+        <div class="quiz-option">D. [3]</div>
+      </div>
+    </div>
+
+    <h2 class="content-h2">今日のまとめ</h2>
+    <p>
+      今日は Python の基本的なデータ型と、変数が「名札」であるという概念を扱いました。
+      この<em>名札モデル</em>は、来週学ぶリスト内包表記や関数への引数渡し、そして第2ヶ月のクラスの理解にも直結します。
+      違和感があっても一度は手を動かして、<code>id()</code> で住所を確認する癖をつけておいてください。
+    </p>
+
+    <h3 class="content-h3">次回予告 · Day 04</h3>
+    <p>次回は <code>if</code> と <code>for</code> を使った制御構文に入ります。今日作った辞書データに対して、条件分岐で処理を分けられるようになります。</p>
+
+    <!-- Prev/Next -->
+    <nav class="page-nav">
+      <a href="day02.html" class="page-nav-link prev">
+        <span class="page-nav-dir">← PREV · DAY 02</span>
+        <span class="page-nav-title">Pythonの導入と仮想環境</span>
+      </a>
+      <a href="day04.html" class="page-nav-link next">
+        <span class="page-nav-dir">NEXT · DAY 04 →</span>
+        <span class="page-nav-title">制御構文とアルゴリズムの基礎</span>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand">
+        <span class="logo-mark">▚</span>
+        RL/ONBOARDING
+      </div>
+      <p class="footer-note">
+        For apprentices of the RL research lab.<br>
+        Built with care, hosted on GitHub Pages.
+      </p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">CURRICULUM</span>
+      <a href="month1.html">Month 01 / Foundations</a>
+      <a href="month2.html">Month 02 / Structure</a>
+      <a href="month3.html">Month 03 / RL Concepts</a>
+      <a href="month4.html">Month 04 / RLlib</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">RESOURCES</span>
+      <a href="appendix.html">Appendix</a>
+      <a href="#">GitHub Repository</a>
+      <a href="#">Issue Tracker</a>
+    </div>
+    <div class="footer-col footer-meta">
+      <span class="footer-version">v1.0.0</span>
+      <span class="footer-updated">last updated: 2026.04</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('pre').innerText;
+  navigator.clipboard.writeText(code);
+  const original = btn.innerText;
+  btn.innerText = 'copied!';
+  setTimeout(() => { btn.innerText = original; }, 1500);
+}
+</script>
+
+</body>
+</html>

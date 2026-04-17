@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RL Lab Onboarding / 強化学習研究のための4ヶ月育成プログラム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- グリッド背景 -->
+<div class="grid-bg"></div>
+<div class="noise-overlay"></div>
+
+<!-- ヘッダー -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">▚</span>
+      <span class="logo-text">RL<span class="slash">/</span>ONBOARDING</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="month1.html" class="nav-link">Month 01</a>
+      <a href="month2.html" class="nav-link">Month 02</a>
+      <a href="month3.html" class="nav-link">Month 03</a>
+      <a href="month4.html" class="nav-link">Month 04</a>
+      <a href="appendix.html" class="nav-link">Appendix</a>
+    </nav>
+    <div class="header-meta">
+      <span class="status-dot"></span>
+      <span class="status-text">LAB.ACTIVE</span>
+    </div>
+  </div>
+</header>
+
+<!-- ヒーローセクション -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span class="meta-label">// CURRICULUM_v1.0</span>
+      <span class="meta-label">// 16 WEEKS · 32 SESSIONS</span>
+      <span class="meta-label">// 4 MEMBERS</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="title-line">ゼロから</span>
+      <span class="title-line title-accent">強化学習研究者</span>
+      <span class="title-line">になるまで。</span>
+    </h1>
+
+    <p class="hero-sub">
+      <span class="en-caption">A 4-month program for RL research apprentices —</span><br>
+      Python の基礎から RLlib を用いたカスタム環境構築まで、<br>
+      <em>「自律した研究者」</em>として立てるようになることを目標に設計された、<br>
+      週2回・全32回のオンボーディングカリキュラム。
+    </p>
+
+    <div class="hero-actions">
+      <a href="month1.html" class="btn btn-primary">
+        <span>Start from Day 01</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="#roadmap" class="btn btn-ghost">View Roadmap</a>
+    </div>
+
+    <!-- ヒーロー右サイド：疑似ターミナル -->
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <span class="terminal-dot dot-r"></span>
+        <span class="terminal-dot dot-y"></span>
+        <span class="terminal-dot dot-g"></span>
+        <span class="terminal-title">~/rl-lab $ session</span>
+      </div>
+      <div class="terminal-body">
+<pre class="terminal-code"><span class="tc-dim">$</span> <span class="tc-cmd">python onboarding.py</span>
+<span class="tc-dim">&gt;&gt;</span> initializing apprentice...
+<span class="tc-dim">&gt;&gt;</span> loading curriculum.yaml
+<span class="tc-dim">&gt;&gt;</span> <span class="tc-ok">[ok]</span> month_01: foundations
+<span class="tc-dim">&gt;&gt;</span> <span class="tc-ok">[ok]</span> month_02: structure &amp; git
+<span class="tc-dim">&gt;&gt;</span> <span class="tc-ok">[ok]</span> month_03: rl concepts
+<span class="tc-dim">&gt;&gt;</span> <span class="tc-ok">[ok]</span> month_04: rllib practice
+<span class="tc-dim">&gt;&gt;</span> status: <span class="tc-accent">READY</span>
+<span class="tc-cursor">_</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 育成方針セクション -->
+<section class="principles">
+  <div class="section-inner">
+    <div class="section-label">
+      <span class="label-num">01</span>
+      <span class="label-text">CORE PRINCIPLES / 育成の基本方針</span>
+    </div>
+
+    <div class="principles-grid">
+      <article class="principle-card">
+        <div class="card-num">P.01</div>
+        <h3 class="card-title">ブラックボックスを<br>なくす</h3>
+        <p class="card-body">
+          「おまじないだからこう書いて」を排除。メモリ確保、仮想環境の分離、importの解決——裏で何が起きているかを<em>イメージできる</em>状態にします。
+        </p>
+        <div class="card-tag">demystify</div>
+      </article>
+
+      <article class="principle-card">
+        <div class="card-num">P.02</div>
+        <h3 class="card-title">オブジェクト指向を<br>意識させる</h3>
+        <p class="card-body">
+          RLlibで環境（Environment）を自作するには、クラスと継承の理解が不可欠。この土台作りに<em>十分な時間</em>を割きます。
+        </p>
+        <div class="card-tag">class &amp; inheritance</div>
+      </article>
+
+      <article class="principle-card">
+        <div class="card-num">P.03</div>
+        <h3 class="card-title">自己解決能力を<br>育てる</h3>
+        <p class="card-body">
+          エラー時に即答しない。Tracebackの読み方、公式ドキュメントの辿り方、LLMへの<em>聞き方</em>まで指導します。
+        </p>
+        <div class="card-tag">self-debugging</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ロードマップ -->
+<section class="roadmap" id="roadmap">
+  <div class="section-inner">
+    <div class="section-label">
+      <span class="label-num">02</span>
+      <span class="label-text">ROADMAP / 4ヶ月の全体像</span>
+    </div>
+
+    <div class="roadmap-track">
+      <!-- Month 1 -->
+      <a href="month1.html" class="month-card month-1">
+        <div class="month-head">
+          <span class="month-num">M.01</span>
+          <span class="month-weeks">Week 01 — 04</span>
+        </div>
+        <h3 class="month-title">開発の土台と<br>Pythonの基礎</h3>
+        <p class="month-desc">
+          自分のPCでプログラムが動く仕組みを理解し、基本的なコードが書けるようになる。
+        </p>
+        <ul class="month-topics">
+          <li>VS Code / 仮想環境</li>
+          <li>変数・制御構文・関数</li>
+          <li>Gitとデバッグの基礎</li>
+        </ul>
+        <div class="month-footer">
+          <span class="month-days">Day 01 — 08</span>
+          <span class="month-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Month 2 -->
+      <a href="month2.html" class="month-card month-2">
+        <div class="month-head">
+          <span class="month-num">M.02</span>
+          <span class="month-weeks">Week 05 — 08</span>
+        </div>
+        <h3 class="month-title">構造化と<br>バージョン管理</h3>
+        <p class="month-desc">
+          研究で使えるレベルのPythonスキルと、GitHubを使ったチーム開発の基礎を身につける。
+        </p>
+        <ul class="month-topics">
+          <li>クラス・継承・OO設計</li>
+          <li>GitHub / PR / コンフリクト</li>
+          <li>NumPy / Matplotlib</li>
+        </ul>
+        <div class="month-footer">
+          <span class="month-days">Day 09 — 16</span>
+          <span class="month-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Month 3 -->
+      <a href="month3.html" class="month-card month-3">
+        <div class="month-head">
+          <span class="month-num">M.03</span>
+          <span class="month-weeks">Week 09 — 12</span>
+        </div>
+        <h3 class="month-title">強化学習の概念と<br>基本実装</h3>
+        <p class="month-desc">
+          強化学習の数理的背景と、既存シミュレーション環境の動かし方を理解する。
+        </p>
+        <ul class="month-topics">
+          <li>MDP / 価値関数 / Q学習</li>
+          <li>ε-greedy / 探索と利用</li>
+          <li>Gymnasium / DQN / PPO</li>
+        </ul>
+        <div class="month-footer">
+          <span class="month-days">Day 17 — 24</span>
+          <span class="month-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Month 4 -->
+      <a href="month4.html" class="month-card month-4">
+        <div class="month-head">
+          <span class="month-num">M.04</span>
+          <span class="month-weeks">Week 13 — 16</span>
+        </div>
+        <h3 class="month-title">RLlibの実践と<br>研究への適応</h3>
+        <p class="month-desc">
+          RLlibで学習を回し、研究課題に合わせた環境を自作・拡張できるようになる。
+        </p>
+        <ul class="month-topics">
+          <li>Ray / RLlibアーキテクチャ</li>
+          <li>カスタム環境 / tune.register_env</li>
+          <li>TensorBoard / 報酬設計</li>
+        </ul>
+        <div class="month-footer">
+          <span class="month-days">Day 25 — 32</span>
+          <span class="month-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 学習フロー -->
+<section class="flow">
+  <div class="section-inner">
+    <div class="section-label">
+      <span class="label-num">03</span>
+      <span class="label-text">HOW IT WORKS / 1回分の授業の流れ</span>
+    </div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="step-num">01</span>
+        <h4 class="step-title">Goal</h4>
+        <p class="step-desc">今日の目標を1-2行で。なぜこれを学ぶのか、研究のどこで使うのかを最初に提示。</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="step-num">02</span>
+        <h4 class="step-title">Concept</h4>
+        <p class="step-desc">図解ベースで概念説明。「裏で何が起きているか」を可視化することに重点。</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="step-num">03</span>
+        <h4 class="step-title">Hands-on</h4>
+        <p class="step-desc">コピペ可能なコードと想定出力。詰まりポイントとTraceback事例を併記。</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="step-num">04</span>
+        <h4 class="step-title">Quiz</h4>
+        <p class="step-desc">3〜5問の自己確認クイズ。次回への橋渡しと発展課題で締める。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Appendix導線 -->
+<section class="appendix-teaser">
+  <div class="section-inner">
+    <div class="section-label">
+      <span class="label-num">04</span>
+      <span class="label-text">APPENDIX / 詰まったときの武器庫</span>
+    </div>
+
+    <div class="appendix-grid">
+      <a href="appendix.html#errors" class="apx-item">
+        <span class="apx-icon">!</span>
+        <span class="apx-label">よくあるエラー集</span>
+        <span class="apx-desc">Traceback読解パターン</span>
+      </a>
+      <a href="appendix.html#docs" class="apx-item">
+        <span class="apx-icon">§</span>
+        <span class="apx-label">公式ドキュメント集</span>
+        <span class="apx-desc">一次情報への導線</span>
+      </a>
+      <a href="appendix.html#llm" class="apx-item">
+        <span class="apx-icon">✦</span>
+        <span class="apx-label">LLM活用ガイド</span>
+        <span class="apx-desc">チューターとしてのAI</span>
+      </a>
+      <a href="appendix.html#env" class="apx-item">
+        <span class="apx-icon">⚙</span>
+        <span class="apx-label">環境構築トラブル</span>
+        <span class="apx-desc">requirements.txt 配布</span>
+      </a>
+      <a href="appendix.html#glossary" class="apx-item">
+        <span class="apx-icon">A</span>
+        <span class="apx-label">用語集</span>
+        <span class="apx-desc">MDP / Q値 / Actor-Critic</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- フッター -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand">
+        <span class="logo-mark">▚</span>
+        RL/ONBOARDING
+      </div>
+      <p class="footer-note">
+        For apprentices of the RL research lab.<br>
+        Built with care, hosted on GitHub Pages.
+      </p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">CURRICULUM</span>
+      <a href="month1.html">Month 01 / Foundations</a>
+      <a href="month2.html">Month 02 / Structure</a>
+      <a href="month3.html">Month 03 / RL Concepts</a>
+      <a href="month4.html">Month 04 / RLlib</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">RESOURCES</span>
+      <a href="appendix.html">Appendix</a>
+      <a href="#">GitHub Repository</a>
+      <a href="#">Issue Tracker</a>
+    </div>
+    <div class="footer-col footer-meta">
+      <span class="footer-version">v1.0.0</span>
+      <span class="footer-updated">last updated: 2026.04</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
