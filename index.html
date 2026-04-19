@@ -34,7 +34,7 @@ body{background:var(--base3);color:var(--base00);font-family:var(--sans);font-si
 
 /* tree */
 .tree,.tree ul{list-style:none;margin:0;padding:0}
-.t-row{display:flex;align-items:center;gap:5px;padding:4px 2px;cursor:pointer;color:var(--base01);user-select:none;position:relative;border-radius:4px}
+.t-row{display:flex;align-items:center;gap:5px;padding:3px 4px 3px 0;cursor:pointer;color:var(--base01);user-select:none;border-radius:3px}
 .t-row:hover{color:var(--base02);background:rgba(0,0,0,0.03)}
 .t-row.is-active{color:var(--yellow)}
 .t-row.is-active .t-label{font-weight:500}
@@ -50,24 +50,25 @@ body{background:var(--base3);color:var(--base00);font-family:var(--sans);font-si
 .tree > li > .t-row .t-label{font-family:var(--serif);font-weight:600;color:var(--base02);font-size:13.5px}
 .tree > li > .t-row.locked .t-label{color:var(--base1)}
 
-/* tree connector lines */
-.t-children{
-  position:relative;
-  padding-left:16px;
-  margin-left:6px;
-  margin-top:1px;
-  margin-bottom:4px;
-  border-left:1px solid var(--base2);
+/* tree lines — indent + vertical guides */
+.t-children{padding-left:14px;margin-left:6px;margin-top:1px;margin-bottom:4px}
+
+/* each li draws its own vertical segment */
+.t-children > li{position:relative}
+
+.t-children > li::before{
+  content:'';position:absolute;
+  left:-8px;top:0;bottom:0;
+  width:1px;background:var(--base2);
 }
-.t-children > li > .t-row::before{
-  content:'';
-  position:absolute;
-  left:-16px;
-  top:50%;
-  width:12px;
-  height:1px;
-  background:var(--base2);
-  pointer-events:none;
+/* last sibling: cut line at connector level */
+.t-children > li:last-child::before{bottom:auto;height:12px}
+
+/* horizontal connector ─ */
+.t-children > li::after{
+  content:'';position:absolute;
+  left:-8px;top:12px;
+  width:6px;height:1px;background:var(--base2);
 }
 .tree > li{margin-bottom:12px}
 
