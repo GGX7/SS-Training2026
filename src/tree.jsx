@@ -49,7 +49,7 @@ function buildTree(){
   }));
 }
 
-function Rail({ active, activeSub, onPick }){
+function Rail({ active, activeSub, onPick, dark, onToggleTheme }){
   const tree = React.useMemo(buildTree, []);
   const [openIds,setOpenIds] = React.useState(() => new Set(["p1","g1","s1","s2"]));
   React.useEffect(() => {
@@ -68,7 +68,13 @@ function Rail({ active, activeSub, onPick }){
   return (
     <aside className="rail">
       <div className="rail-head">
-        <div className="rail-title">SS-Training 2026</div>
+        <div className="rail-head-row">
+          <div className="rail-title">SS-Training 2026</div>
+          <button className="theme-btn" onClick={onToggleTheme}
+            title={dark ? "ライトモードへ" : "ダークモードへ"}>
+            {dark ? "☀" : "☽"}
+          </button>
+        </div>
         <div className="rail-sub">強化学習研究 · 全4部 16章 32節</div>
       </div>
       <div className="rail-body">

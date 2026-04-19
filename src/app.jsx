@@ -1,4 +1,15 @@
 // App shell — sections by number
+function useTheme(){
+  const [dark,setDark] = React.useState(()=>{
+    try{ return localStorage.getItem("ss-theme")==="dark"; }catch{ return false; }
+  });
+  React.useEffect(()=>{
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    try{ localStorage.setItem("ss-theme", dark ? "dark" : "light"); }catch{}
+  },[dark]);
+  return [dark, ()=>setDark(d=>!d)];
+}
+
 function useStoredLoc(){
   const read = () => { try { const r = localStorage.getItem("ss-training.loc"); if (r) return JSON.parse(r); } catch{} return { sec:"s1", sub:null }; };
   const [loc,setLoc] = React.useState(read);
@@ -26,6 +37,7 @@ function SecNav({ sec, onGo }){
 
 function App(){
   const [loc,setLoc] = useStoredLoc();
+  const [dark,toggleTheme] = useTheme();
   const mainRef = React.useRef(null);
 
   const onPick = (node) => {
@@ -59,7 +71,7 @@ function App(){
 
   return (
     <div className="app">
-      <window.Rail active={loc.sec} activeSub={loc.sub} onPick={onPick} />
+      <window.Rail active={loc.sec} activeSub={loc.sub} onPick={onPick} dark={dark} onToggleTheme={toggleTheme} />
       <main className="main" ref={mainRef}>
         <div className="content">
           {loc.sec === "s1" && <window.S1 />}
