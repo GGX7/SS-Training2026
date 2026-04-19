@@ -133,4 +133,13 @@ function DayNav({ prev, next, onGo }) {
   );
 }
 
-Object.assign(window, { Callout, Terminal, Prompt, Cmd, Out, Cmt, Ok, Err, Code, Section, Card, Steps, Check, DayHeader, DayNav });
+function CodeBlock({ lang = "bash", children }) {
+  return (
+    <div className="cb">
+      <div className="cb-head">{lang}</div>
+      {children}
+    </div>
+  );
+}
+
+Object.assign(window, { Callout, Terminal, Prompt, Cmd, Out, Cmt, Ok, Err, Code, CodeBlock, Section, Card, Steps, Check, DayHeader, DayNav });

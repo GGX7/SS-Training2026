@@ -19,16 +19,20 @@ function S2(){
       <p>
         一台の PC には、システム付属の Python、Homebrew で入れた Python、<code>pyenv</code> で切り替えた Python…… と、<strong>複数の Python が同居している</strong>のが普通である。<code>python</code> コマンドが何を指すかは <code>PATH</code> の順序で決まる。
       </p>
-      <pre><span className="p">$ </span><span className="o">which -a python3</span>
+      <window.CodeBlock lang="bash">
+        <pre><span className="p">$ </span><span className="o">which -a python3</span>
 /usr/bin/python3
 /opt/homebrew/bin/python3
 /Users/you/.pyenv/shims/python3</pre>
+      </window.CodeBlock>
 
       <h2 id="s2-install">Python をインストールする</h2>
       <p><strong>macOS</strong>: Homebrew 経由が無難。</p>
-      <pre><span className="p">$ </span><span className="o">brew install python@3.12</span>
+      <window.CodeBlock lang="bash">
+        <pre><span className="p">$ </span><span className="o">brew install python@3.12</span>
 <span className="p">$ </span><span className="o">python3 --version</span>
 Python 3.12.4</pre>
+      </window.CodeBlock>
       <p>
         <strong>Windows</strong>: python.org の公式インストーラを使う。インストール時に <strong>「Add python.exe to PATH」にチェック</strong>を入れること。Microsoft Store 版は venv と噛み合わないことがあるため避ける。
       </p>
@@ -50,7 +54,8 @@ Python 3.12.4</pre>
 
       <h2 id="s2-venv">venv で部屋を作る</h2>
       <p>標準ライブラリの <code>venv</code> を使う。追加インストールは不要。</p>
-      <pre><span className="c"># 1. プロジェクト用フォルダを作る</span>
+      <window.CodeBlock lang="bash">
+        <pre><span className="c"># 1. プロジェクト用フォルダを作る</span>
 <span className="p">$ </span><span className="o">mkdir rl-training && cd rl-training</span>
 
 <span className="c"># 2. venv を作る（フォルダ名の慣習は .venv）</span>
@@ -63,8 +68,11 @@ Python 3.12.4</pre>
 
 <span className="c"># 4. 部屋を出る</span>
 <span className="k">(.venv)</span> <span className="p">$ </span><span className="o">deactivate</span></pre>
+      </window.CodeBlock>
       <p>Windows (PowerShell) の場合：</p>
-      <pre><span className="o">PS&gt; .venv\Scripts\Activate.ps1</span></pre>
+      <window.CodeBlock lang="PowerShell">
+        <pre><span className="o">PS&gt; .venv\Scripts\Activate.ps1</span></pre>
+      </window.CodeBlock>
       <p>
         VS Code には、コマンドパレットで <code>Python: Select Interpreter</code> を開き、<code>.venv</code> の Python を選ぶ。以後、実行ボタンやデバッガは必ずこの部屋を使う。
       </p>
@@ -75,15 +83,19 @@ Python 3.12.4</pre>
 
       <h2 id="s2-hello">Hello, World.</h2>
       <p><code>hello.py</code> を新規作成し、次を書く。</p>
-      <pre><span className="c"># hello.py</span>
+      <window.CodeBlock lang="python">
+        <pre><span className="c"># hello.py</span>
 <span className="k">def</span> main():
     print(<span className="c">"Hello, World."</span>)
 
 <span className="k">if</span> __name__ == <span className="c">"__main__"</span>:
     main()</pre>
+      </window.CodeBlock>
       <p>ターミナルから実行：</p>
-      <pre><span className="k">(.venv)</span> <span className="p">$ </span><span className="o">python hello.py</span>
+      <window.CodeBlock lang="bash">
+        <pre><span className="k">(.venv)</span> <span className="p">$ </span><span className="o">python hello.py</span>
 Hello, World.</pre>
+      </window.CodeBlock>
       <div className="note">
         <strong>Why</strong>
         <code>if __name__ == "__main__":</code> は「このファイルが直接実行されたときだけ <code>main()</code> を呼ぶ」という定石。いまは仕組みを深追いしなくてよい。§6 のモジュール回で回収する。
