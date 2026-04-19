@@ -2,7 +2,7 @@
 function S1(){
   return (
     <article>
-      <div className="day-meta">§1 / 32</div>
+      <div className="day-meta">第1部 › 第1章 › 第1節</div>
       <h1>導入と VS Code 構築</h1>
       <p className="lede">
         プログラミングとは、人間の言葉を機械の言葉に翻訳する作業である。今日はその翻訳を助ける道具——エディタ——を手元に用意する。
