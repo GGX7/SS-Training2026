@@ -2,7 +2,7 @@
 function S2(){
   return (
     <article>
-      <div className="day-meta">§2 / 32</div>
+      <div className="day-meta">第1部 › 第1章 › 第2節</div>
       <h1>Python の導入と仮想環境</h1>
       <p className="lede">
         世界に Python は一つではない。プロジェクトごとに「部屋」を分ける感覚を持つことが、後の RLlib × Gymnasium のバージョン衝突を回避する最大の武器になる。
