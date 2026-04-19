@@ -15,6 +15,10 @@ function TreeRow({ node, openIds, toggle, active, activeSub, onPick }){
           if (node.kind === "SECTION" || node.kind === "SUB") onPick(node);
         }}
       >
+        {isLeaf
+          ? <span className="t-leaf-icon">·</span>
+          : <span className={"t-chevron" + (open ? " open" : "")}>▶</span>
+        }
         <span className="t-label">{node.label}</span>
       </div>
       {!isLeaf && open && (

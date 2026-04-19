@@ -34,17 +34,42 @@ body{background:var(--base3);color:var(--base00);font-family:var(--sans);font-si
 
 /* tree */
 .tree,.tree ul{list-style:none;margin:0;padding:0}
-.t-row{display:flex;align-items:baseline;gap:8px;padding:3px 0;cursor:pointer;color:var(--base01);user-select:none}
-.t-row:hover{color:var(--base02)}
+.t-row{display:flex;align-items:center;gap:5px;padding:4px 2px;cursor:pointer;color:var(--base01);user-select:none;position:relative;border-radius:4px}
+.t-row:hover{color:var(--base02);background:rgba(0,0,0,0.03)}
 .t-row.is-active{color:var(--yellow)}
 .t-row.is-active .t-label{font-weight:500}
 .t-row.locked{color:var(--base1);cursor:default}
-.t-row.locked:hover{color:var(--base1)}
-.t-label{font-size:13.5px;letter-spacing:-0.003em}
-.tree > li > .t-row .t-label{font-family:var(--serif);font-weight:600;color:var(--base02);font-size:14px}
+.t-row.locked:hover{color:var(--base1);background:none}
+
+/* chevron & leaf icons */
+.t-chevron{flex-shrink:0;width:12px;height:12px;display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--base1);transition:transform 0.15s ease;line-height:1}
+.t-chevron.open{transform:rotate(90deg)}
+.t-leaf-icon{flex-shrink:0;width:12px;height:12px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--base2);line-height:1}
+
+.t-label{font-size:13px;letter-spacing:-0.003em;line-height:1.35}
+.tree > li > .t-row .t-label{font-family:var(--serif);font-weight:600;color:var(--base02);font-size:13.5px}
 .tree > li > .t-row.locked .t-label{color:var(--base1)}
-.t-children{padding-left:16px;margin-top:2px;margin-bottom:6px}
-.tree > li{margin-bottom:14px}
+
+/* tree connector lines */
+.t-children{
+  position:relative;
+  padding-left:16px;
+  margin-left:6px;
+  margin-top:1px;
+  margin-bottom:4px;
+  border-left:1px solid var(--base2);
+}
+.t-children > li > .t-row::before{
+  content:'';
+  position:absolute;
+  left:-16px;
+  top:50%;
+  width:12px;
+  height:1px;
+  background:var(--base2);
+  pointer-events:none;
+}
+.tree > li{margin-bottom:12px}
 
 /* ── main ── */
 .main{overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#d9cda0 transparent}
