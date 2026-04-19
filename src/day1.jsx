@@ -45,10 +45,12 @@ function S1(){
         <li>自分の OS に合った版を選ぶ（Mac は Apple Silicon / Intel に注意）</li>
         <li>起動後、コマンドパレットで <code>Shell Command: Install 'code' command in PATH</code> を実行</li>
       </ol>
-      <pre><span className="p">$ </span><span className="o">code --version</span>
+      <window.CodeBlock lang="bash">
+        <pre><span className="p">$ </span><span className="o">code --version</span>
 <span className="c">1.95.2</span>
 <span className="c">a23v9fg88...</span>
 <span className="c">x64</span></pre>
+      </window.CodeBlock>
 
       <h2 id="s1-ext">入れる拡張機能</h2>
       <p>最初は欲張らない。次の3つだけで十分。</p>
