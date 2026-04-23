@@ -38,9 +38,13 @@ function SecNav({ sec, onGo }){
 function App(){
   const [loc,setLoc] = useStoredLoc();
   const [dark,toggleTheme] = useTheme();
+  const [railOpen, setRailOpen] = React.useState(false);
   const mainRef = React.useRef(null);
 
+  const closeMobileRail = () => setRailOpen(false);
+
   const onPick = (node) => {
+    closeMobileRail();
     if (node.kind === "SECTION"){
       setLoc({ sec: node.id, sub: null });
       requestAnimationFrame(() => mainRef.current && mainRef.current.scrollTo({ top: 0, behavior: "smooth" }));
@@ -71,8 +75,14 @@ function App(){
 
   return (
     <div className="app">
-      <window.Rail active={loc.sec} activeSub={loc.sub} onPick={onPick} dark={dark} onToggleTheme={toggleTheme} />
+      <div className={"rail-overlay" + (railOpen ? " mobile-open" : "")} onClick={closeMobileRail} />
+      <window.Rail active={loc.sec} activeSub={loc.sub} onPick={onPick} dark={dark} onToggleTheme={toggleTheme} mobileOpen={railOpen} />
       <main className="main" ref={mainRef}>
+        <div className="mobile-bar">
+          <button className="menu-btn" onClick={() => setRailOpen(o => !o)} title="メニュー">☰</button>
+          <span className="mobile-title">SS-Training 2026</span>
+          <button className="theme-btn" onClick={toggleTheme} title={dark ? "ライトモードへ" : "ダークモードへ"}>{dark ? "☀" : "☽"}</button>
+        </div>
         <div className="content">
           {loc.sec === "s1" && <window.S1 />}
           {loc.sec === "s2" && <window.S2 />}
