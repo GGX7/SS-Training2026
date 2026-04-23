@@ -49,7 +49,7 @@ function buildTree(){
   }));
 }
 
-function Rail({ active, activeSub, onPick, dark, onToggleTheme }){
+function Rail({ active, activeSub, onPick, dark, onToggleTheme, mobileOpen }){
   const tree = React.useMemo(buildTree, []);
   const [openIds,setOpenIds] = React.useState(() => new Set(["p1","g1","s1","s2"]));
   React.useEffect(() => {
@@ -66,7 +66,7 @@ function Rail({ active, activeSub, onPick, dark, onToggleTheme }){
   const toggle = (id) => setOpenIds(p => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n; });
 
   return (
-    <aside className="rail">
+    <aside className={"rail" + (mobileOpen ? " mobile-open" : "")}>
       <div className="rail-head">
         <div className="rail-head-row">
           <div className="rail-title">SS-Training 2026</div>
